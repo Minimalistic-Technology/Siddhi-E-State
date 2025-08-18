@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/navabar/page";
 import axios from "axios";
 import { FaBuilding, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
+
 type RedevelopmentProject = {
   id: string;
   name: string;
@@ -41,24 +41,22 @@ export default function RedevelopmentCommercialPage() {
   const [commercialPage, setCommercialPage] = useState(1);
   const ITEMS_PER_PAGE = 2;
   const ITEMS_PER_PAGE2 = 3;
-  // Reset pagination when tab changes
   useEffect(() => {
     setRedevelopmentPage(1);
     setCommercialPage(1);
   }, [activeTab]);
 
-  // Fetch Data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [redevelopmentRes, commercialRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/property/redevelopment"),
-          axios.get("http://localhost:5000/api/property/commercial"),
+          axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/redevelopment`),
+          axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/commercial`),
         ]);
 
         setRedevelopmentProjects(
-          redevelopmentRes.data.map((item: any) => ({
-            id: item._id,
+          redevelopmentRes.data.map((item: RedevelopmentProject) => ({
+            id: item.id,
             name: item.name,
             beforeImage: item.beforeImage,
             afterImage: item.afterImage,
@@ -70,8 +68,8 @@ export default function RedevelopmentCommercialPage() {
         );
 
         setCommercialProjects(
-          commercialRes.data.map((item: any) => ({
-            id: item._id,
+          commercialRes.data.map((item: CommercialProject) => ({
+            id: item.id,
             name: item.name,
             image: item.image,
             location: item.location,
@@ -86,7 +84,6 @@ export default function RedevelopmentCommercialPage() {
 
     fetchData();
   }, []);
-  // Paginated data
   const paginatedRedevelopment = redevelopmentProjects.slice(
     (redevelopmentPage - 1) * ITEMS_PER_PAGE,
     redevelopmentPage * ITEMS_PER_PAGE
@@ -97,7 +94,6 @@ export default function RedevelopmentCommercialPage() {
     commercialPage * ITEMS_PER_PAGE2
   );
 
-  // Total Pages
   const totalRedevelopmentPages = Math.ceil(
     redevelopmentProjects.length / ITEMS_PER_PAGE
   );
@@ -110,7 +106,6 @@ export default function RedevelopmentCommercialPage() {
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6">
         <Navbar />
 
-        {/* Hero Section */}
         <div className="relative h-96 w-full mb-20 bg-[#d6a243] flex items-center justify-center border-b border-[#d6a243]/20 mt-8">
           <div className="text-center px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -126,7 +121,6 @@ export default function RedevelopmentCommercialPage() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
           <div className="flex border-b border-gray-300">
             <button
@@ -241,7 +235,6 @@ export default function RedevelopmentCommercialPage() {
                 </div>
               ))}
             </div>
-            {/* Pagination Controls */}
             <div className="flex justify-center mt-8 space-x-4">
               <button
                 onClick={() =>
@@ -324,7 +317,6 @@ export default function RedevelopmentCommercialPage() {
                 </div>
               ))}
             </div>
-            {/* Pagination Controls */}
             <div className="flex justify-center mt-8 space-x-4">
               <button
                 onClick={() =>
@@ -353,7 +345,6 @@ export default function RedevelopmentCommercialPage() {
           </section>
         )}
 
-        {/* Builder Partnerships Section */}
         <section className="py-20 px-6 max-w-6xl mx-auto">
           <div className="bg-white rounded-xl shadow-sm p-8">
             <div className="text-center mb-12">
@@ -361,7 +352,7 @@ export default function RedevelopmentCommercialPage() {
                 Our Builder Partnerships
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                We collaborate with Mumbai's most trusted builders to deliver
+                We collaborate with Mumbai&apos;s most trusted builders to deliver
                 exceptional quality and value
               </p>
             </div>
@@ -387,7 +378,6 @@ export default function RedevelopmentCommercialPage() {
           </div>
         </section>
 
-        {/* Legal Coordination Section */}
         <section className="py-20 px-6 max-w-6xl mx-auto">
           <div className="bg-white rounded-xl shadow-sm p-8 md:p-12">
             <div className="md:flex items-center">
@@ -432,21 +422,20 @@ export default function RedevelopmentCommercialPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="py-16 px-6 bg-[#d6a243] text-white">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
               Ready to Start Your Project?
             </h2>
             <p className="text-xl mb-8">
-              Whether it's society redevelopment or commercial space
+              Whether it&apos;s society redevelopment or commercial space
               acquisition, our experts are here to guide you.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="/#contact">
+              <Link href="/#contact">
               <button className="bg-white text-[#d6a243] px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
                 Get Free Consultation
-              </button></a>
+              </button></Link>
             </div>
           </div>
         </section>

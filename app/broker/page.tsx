@@ -9,11 +9,11 @@ import {
   FaUserTie,
   FaHome,
   FaBuilding,
-  FaUserPlus,
 } from "react-icons/fa";
 import Navbar from "../components/navabar/page";
 import { useForm } from "react-hook-form";
 import api from "@/utils/api";
+
 interface Broker {
   _id: string;
   name: string;
@@ -61,7 +61,7 @@ export default function BrokerPage() {
   useEffect(() => {
     const fetchBrokers = async () => {
       try {
-        const response = await api.get("/property/brokers");
+        const response = await api.get("/brokers");
         const allBrokers = response.data as Broker[];
         const verifiedOnly = allBrokers.filter((b) => b.verified);
         setBrokers(verifiedOnly.reverse());
@@ -72,9 +72,9 @@ export default function BrokerPage() {
 
     const fetchRequirements = async () => {
       try {
-        const res = await api.get("/property/property-requirements");
+        const res = await api.get("/property-requirements");
         const data = res.data as Requirement[];
-        setRequirements(data.slice(-3).reverse()); // latest on top
+        setRequirements(data.slice(-3).reverse()); 
       } catch (err) {
         console.error("Failed to fetch property requirements:", err);
       }
@@ -86,7 +86,7 @@ export default function BrokerPage() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await api.post("/property/brokers", data);
+      const response = await api.post("/brokers", data);
       setConnectMessage("Registration successful!");
       setBrokers((prev) => [...prev, response.data]);
       reset();
@@ -134,7 +134,6 @@ export default function BrokerPage() {
               </div>
             ))}
           </div>
-          {/* Pagination */}
           <div className="flex justify-center mt-4 gap-2">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
@@ -186,7 +185,6 @@ export default function BrokerPage() {
           <section className="py-2 px-6 max-w-6xl mx-auto">
             <div className="bg-white rounded-xl shadow-sm p-8 md:p-12">
               <div className="md:flex items-center">
-                {/* Form Side */}
                 <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     {connectMessage && (
@@ -261,7 +259,6 @@ export default function BrokerPage() {
                   </form>
                 </div>
 
-                {/* Image Side */}
                 <div className="md:w-1/2">
                   <Image
                     src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80"
@@ -278,4 +275,4 @@ export default function BrokerPage() {
       </div>
     </div>
   );
-}
+};

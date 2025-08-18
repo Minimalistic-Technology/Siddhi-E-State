@@ -1,8 +1,9 @@
-// components/ui/card.tsx
 
 import React from "react";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+type CardProps = React.HTMLAttributes<HTMLDivElement> & {
+  className?: string;
+};
 
 export const Card = ({ className = "", ...props }: CardProps) => {
   return (
@@ -13,10 +14,10 @@ export const Card = ({ className = "", ...props }: CardProps) => {
   );
 };
 
-interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+type CardContentProps = React.HTMLAttributes<HTMLDivElement> & {
+  className?: string;
+};
 
 export const CardContent = ({ className = "", ...props }: CardContentProps) => {
-  return (
-    <div className={`p-4 ${className}`} {...props} />
-  );
+  return <div className={`p-4 ${className}`} {...props} />;
 };

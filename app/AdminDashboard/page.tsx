@@ -1,11 +1,10 @@
-// AdminDashboard.tsx (Updated with property requirements add/edit/delete under Brokers tab)
 "use client";
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Property from "./property/page";
 import Broker from "./broker/page";
 import Redevelopment from "./redevelopment/page";
+
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("Properties");
 

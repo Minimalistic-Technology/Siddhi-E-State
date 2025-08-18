@@ -10,8 +10,6 @@ import {
   FileText,
   Phone,
   Calculator,
-  ArrowRight,
-  BellRing,
   CircleDotDashed,
 } from "lucide-react";
 import Navbar from "../components/navabar/page";
@@ -40,12 +38,12 @@ export default function LoansLegalPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent multiple clicks
+    if (isSubmitting) return; 
 
     setIsSubmitting(true);
 
     try {
-      await axios.post("http://localhost:5000/api/property/send-email", {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/send-email`, {
         fullName,
         email: "not_provided@example.com",
         phone,
@@ -59,7 +57,7 @@ export default function LoansLegalPage() {
       });
 
       setFormSubmitted(true);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Email sending error:", error);
       alert("Failed to send request. Please try again later.");
     } finally {
@@ -72,14 +70,13 @@ export default function LoansLegalPage() {
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
         <Navbar />
         <main className="bg-gradient-to-b from-amber-50 to-amber-100 text-amber-900">
-          {/* Hero */}
           <section className="text-center py-20 px-6 max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-wide">
                 Loans & Legal Assistance
               </h1>
               <p className="text-xl text-amber-700 max-w-2xl mx-auto">
@@ -88,8 +85,6 @@ export default function LoansLegalPage() {
               </p>
             </motion.div>
           </section>
-
-          {/* LOANS SECTION */}
           <section className="py-16 px-6 md:px-20 bg-white shadow-sm">
             <div className="max-w-6xl mx-auto">
               <motion.div
@@ -102,8 +97,6 @@ export default function LoansLegalPage() {
                   <Banknote className="text-amber-600" size={28} />
                   Loan Options
                 </h2>
-
-                {/* Home Loans */}
                 <motion.div
                   className="mb-16 p-6 bg-amber-50 rounded-xl"
                   whileHover={{ y: -5 }}
@@ -138,8 +131,6 @@ export default function LoansLegalPage() {
                         </div>
                       </div>
                     </div>
-
-                    {/* EMI Calculator */}
                     <div className="flex-1">
                       <div className="bg-white p-6 rounded-lg shadow-md border border-amber-100">
                         <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
@@ -208,8 +199,6 @@ export default function LoansLegalPage() {
                     </div>
                   </div>
                 </motion.div>
-
-                {/* Mortgage Loans */}
                 <motion.div
                   className="mb-16 p-6 bg-amber-50 rounded-xl"
                   whileHover={{ y: -5 }}
@@ -243,8 +232,6 @@ export default function LoansLegalPage() {
                     </div>
                   </div>
                 </motion.div>
-
-                {/* Builder Financing */}
                 <motion.div
                   className="p-6 bg-amber-50 rounded-xl"
                   whileHover={{ y: -5 }}
@@ -280,8 +267,6 @@ export default function LoansLegalPage() {
               </motion.div>
             </div>
           </section>
-
-          {/* LEGAL SECTION */}
           <section className="py-16 px-6 md:px-20 bg-amber-50">
             <div className="max-w-6xl mx-auto">
               <motion.div
@@ -296,7 +281,6 @@ export default function LoansLegalPage() {
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                  {/* Sale Agreement */}
                   <motion.div
                     className="bg-white p-6 rounded-xl shadow-sm border border-amber-100 hover:shadow-md transition-shadow"
                     whileHover={{ y: -5 }}
@@ -330,8 +314,6 @@ export default function LoansLegalPage() {
                       </li>
                     </ul>
                   </motion.div>
-
-                  {/* Purchase Registration */}
                   <motion.div
                     className="bg-white p-6 rounded-xl shadow-sm border border-amber-100 hover:shadow-md transition-shadow"
                     whileHover={{ y: -5 }}
@@ -366,7 +348,6 @@ export default function LoansLegalPage() {
                     </ul>
                   </motion.div>
 
-                  {/* Builder Coordination */}
                   <motion.div
                     className="bg-white p-6 rounded-xl shadow-sm border border-amber-100 hover:shadow-md transition-shadow"
                     whileHover={{ y: -5 }}
@@ -404,8 +385,6 @@ export default function LoansLegalPage() {
               </motion.div>
             </div>
           </section>
-
-          {/* CONNECT WITH LEGAL TEAM */}
           <section className="bg-amber-600 text-white py-20 px-6">
             <div className="max-w-4xl mx-auto text-center">
               <motion.div

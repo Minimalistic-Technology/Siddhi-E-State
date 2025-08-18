@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import api from "@/utils/api";
 import Navbar from "../components/navabar/page";
+import { AxiosError } from 'axios';
 import { Phone } from "lucide-react";
 
 type FormData = {
@@ -19,15 +20,8 @@ type Property = {
   title: string;
   location: string;
 };
-type TeamMember = {
-  _id: string;
-  name: string;
-  position: string;
-  imageUrl: string;
-};
 
 export default function HeroSection() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Property[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -37,13 +31,12 @@ export default function HeroSection() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>();
-  const [team, setTeam] = useState<TeamMember[]>([]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
 
     try {
-      const res = await api.get("/property/properties");
+      const res = await api.get("/properties");
       const data: Property[] = res.data;
 
       const filtered = data.filter(
@@ -59,7 +52,7 @@ export default function HeroSection() {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       setError(null);
       const payload = {
@@ -75,7 +68,7 @@ export default function HeroSection() {
         projectDesc: data.message || "",
       };
 
-      const response = await api.post("/property/send-email", payload);
+      const response = await api.post("/send-email", payload);
 
       if (response.status === 200) {
         reset();
@@ -83,20 +76,19 @@ export default function HeroSection() {
       } else {
         setError("Failed to send message: " + response.data.error);
       }
-    } catch (error: any) {
-      console.error("Submission error:", error);
-      if (error.response && error.response.data && error.response.data.error) {
-        setError("Failed to send message: " + error.response.data.error);
-      } else {
-        setError("Something went wrong. Please try again later.");
-      }
-    }
+    } catch (error: unknown) {
+  console.error("Submission error:", error);
+  if (error instanceof AxiosError) {
+    setError("Failed to send message: " + error.response?.data.error);
+  } else {
+    setError("Something went wrong. Please try again later.");
+  }
+}
   };
- 
+
   return (
     <div>
       <div className="relative min-h-screen sm:min-h-[120vh] bg-gray-100 overflow-hidden">
-        {/* Background Image with Black Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/image.jpg"
@@ -109,9 +101,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-black opacity-30"></div>
         </div>
 
-        {/* Navigation Bar - Reduced Width */}
         <Navbar></Navbar>
-        {/* Content Section - Centered */}
         <div className="relative z-5 flex flex-col items-center justify-center h-full px-4 sm:px-6 pt-24 sm:pt-32 text-center">
           <div className="flex flex-col items-center ">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 tracking-wide drop-shadow-lg">
@@ -156,9 +146,6 @@ export default function HeroSection() {
                   Search
                 </button>
               </div>
-
-              {/* Show results */}
-              {/* Show results */}
               <div className="mt-4 text-left">
                 {results.length > 0 ? (
                   results.map((property) => (
@@ -213,7 +200,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Image */}
           <div className="flex justify-center">
             <Image
               src="/hawamahal.png"
@@ -267,7 +253,6 @@ export default function HeroSection() {
                 key={idx}
                 className="w-full sm:w-[48%] lg:w-[23%] flex flex-col items-center text-center bg-white rounded-lg shadow-sm p-4"
               >
-                {/* Fixed height image zone */}
                 <div className="h-[220px] flex items-center justify-center mb-4">
                   <Image
                     src={card.image}
@@ -276,16 +261,12 @@ export default function HeroSection() {
                     height={160}
                   />
                 </div>
-
-                {/* Fixed height title zone */}
                 <h3 className="text-xl font-bold text-gray-900 mb-2 min-h-[56px]">
                   {card.title}
                 </h3>
 
-                {/* Fixed height description zone */}
                 <p className="text-gray-800 mb-4 min-h-[72px]">{card.desc}</p>
 
-                {/* Button */}
                 <Link href={card.link}>
                   <button className="bg-[#faeebf] text-[#d6a243] text-sm font-semibold px-4 py-3 rounded-md shadow-sm cursor-pointer hover:bg-[#d6a243] hover:text-white transition">
                     {card.btn}
@@ -297,7 +278,6 @@ export default function HeroSection() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section id="contact" className="bg-[#f9f1dd] py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-12">
@@ -305,7 +285,6 @@ export default function HeroSection() {
           </h2>
 
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Left Form */}
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full md:w-1/2">
               <h3 className="text-2xl font-semibold text-[#d6a243] mb-6">
                 Send us a message
@@ -318,7 +297,6 @@ export default function HeroSection() {
               )}
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Name */}
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
                     Name*
@@ -342,7 +320,6 @@ export default function HeroSection() {
                   )}
                 </div>
 
-                {/* Email */}
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
                     Email Address*
@@ -372,7 +349,6 @@ export default function HeroSection() {
                   )}
                 </div>
 
-                {/* Phone */}
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
                     Phone Number*
@@ -402,7 +378,6 @@ export default function HeroSection() {
                   )}
                 </div>
 
-                {/* Message */}
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
                     Message
@@ -416,7 +391,6 @@ export default function HeroSection() {
                   />
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -427,27 +401,24 @@ export default function HeroSection() {
               </form>
             </div>
 
-            {/* Right Contact Info */}
             <div className="bg-[#fff8e1] p-8 rounded-2xl shadow-xl w-full md:w-1/2">
               <h3 className="text-2xl font-semibold text-[#d6a243] mb-6">
                 Get in Touch
               </h3>
               <div className="space-y-6 text-gray-700">
-                {/* Email */}
                 <div className="flex items-start gap-4">
-                  <img src="/mail.png" alt="Email" className="w-6 h-6 mt-1" />
+                  <Image src="/mail.png" alt="Email" width={24} height={24} className="mt-1" />
                   <div>
                     <p className="font-semibold text-[#d6a243]">Email Us</p>
                     <p>siddhiestate23@gmail.com</p>
                   </div>
                 </div>
 
-                {/* Location */}
                 <div className="flex items-start gap-4">
-                  <img
+                  <Image
                     src="/location.png"
                     alt="Location"
-                    className="w-6 h-6 mt-1"
+                    width={24} height={24} className="mt-1"
                   />
                   <div>
                     <p className="font-semibold text-[#d6a243]">Location</p>
@@ -455,9 +426,8 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                {/* Hours */}
                 <div className="flex items-start gap-4">
-                  <img src="/clock.png" alt="Clock" className="w-6 h-6 mt-1" />
+                  <Image src="/clock.png" alt="Clock" width={24} height={24} className="mt-1" />
                   <div>
                     <p className="font-semibold text-[#d6a243]">
                       Opening Hours
@@ -468,7 +438,7 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                {/* WhatsApp */}
+
                 <a
                   href="https://wa.me/918948869808"
                   target="_blank"

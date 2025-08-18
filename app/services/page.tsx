@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Loader } from "lucide-react";
 import Navbar from "../components/navabar/page";
@@ -9,7 +10,7 @@ import Footer from "../components/footer/page";
 import api from "@/utils/api";
 
 type Properties = {
-  id: number;
+  _id: string;
   title: string;
   location: string;
   image: string;
@@ -23,8 +24,8 @@ type QueryForm = {
   query: string;
 };
 
-export default function DiscountPropertiesPage() {
-  const [properties, setProperties] = useState<Properties[] | null>(null);
+export default function ServicesPage() {
+  const [properties, setProperties] = useState<Properties[]>([]);
   const [loanAmount, setLoanAmount] = useState<number | null>(null);
   const [interestRate, setInterestRate] = useState<number | null>(null);
   const [loanTenure, setLoanTenure] = useState<number | null>(null);
@@ -45,18 +46,16 @@ export default function DiscountPropertiesPage() {
         projectDesc: data.query,
       };
 
-      const response = await api.post(
-        "/property/send-email",
-        payload
-      );
+      const response = await api.post("/send-email", payload);
       if (response.status === 200) {
         reset();
         setError(null);
       } else {
-        setError("Failed to send message: " + response.data.error);
+        setError("Failed to send message: " + (response.data.error || "Unknown error"));
       }
-    } catch (err: any) {
-      console.error("Error occurred while sending:", err.message || err);
+    } catch (err: unknown) {
+      console.error("Error occurred while sending:", err);
+      setError("Failed to send message. Please try again later.");
     }
   };
 
@@ -64,31 +63,29 @@ export default function DiscountPropertiesPage() {
     const fetchProperties = async () => {
       try {
         const res = await api.get("/properties");
+        const discounted: Properties[] = res.data
+          .filter((prop: Properties) => prop.discountedPrice < prop.originalPrice)
+          .slice(0, 3)
+          .map((prop: Properties) => ({
+            _id: prop._id,
+            title: prop.title,
+            location: prop.location,
+            image: prop.image,
+            originalPrice: prop.originalPrice,
+            discountedPrice: prop.discountedPrice,
+            area: `${prop.area} sq.ft.`,
+          }));
 
-        const discounted = res.data
-          .filter((prop: any) => prop.discountedPrice < prop.originalPrice)
-          .slice(0, 3);
-
-        const formatted = discounted.map((prop: any) => ({
-          id: prop._id,
-          title: prop.title,
-          location: prop.location,
-          image: prop.image,
-          originalPrice: prop.originalPrice,
-          discountedPrice: prop.discountedPrice,
-          area: `${prop.area} sq.ft.`,
-        }));
-
-        setProperties(formatted);
-      } catch (error) {
+        setProperties(discounted);
+      } catch (error: unknown) {
         console.error("Failed to fetch properties:", error);
+        setError("Failed to fetch properties. Please try again later.");
       }
     };
 
     fetchProperties();
   }, []);
 
-  // Basic EMI calculator logic
   const calculateEMI = () => {
     if (!loanAmount || !interestRate || !loanTenure) {
       setEmi(null);
@@ -115,18 +112,17 @@ export default function DiscountPropertiesPage() {
         <Navbar />
         <div className="p-6 md:p-10 max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-[#d6a243] mb-6">
-            Discount Property Listings
+            Our Services
           </h1>
           <p className="text-gray-800 mb-8 text-base md:text-lg">
-            Explore handpicked properties currently available at attractive
-            discounts. Limited time offers!
+            Explore our range of real estate services, including discounted property listings and expert consultation.
           </p>
 
-          {properties ? (
+          {properties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {properties.map((prop) => (
                 <div
-                  key={prop.id}
+                  key={prop._id}
                   className="rounded-2xl shadow-md hover:shadow-xl transition duration-300 bg-white overflow-hidden"
                 >
                   <Image
@@ -165,7 +161,6 @@ export default function DiscountPropertiesPage() {
             </div>
           )}
 
-          {/* Ask a Property Expert Section */}
           <div className="mt-16 bg-white rounded-2xl shadow-md p-6 md:p-10">
             {error && (
               <p className="text-red-600 font-medium bg-red-100 border border-red-400 rounded p-3 mb-4">
@@ -224,7 +219,6 @@ export default function DiscountPropertiesPage() {
             </form>
           </div>
 
-          {/* Home Loan EMI Calculator Section */}
           <div className="mt-16 bg-white rounded-2xl shadow-md p-6 md:p-10">
             <h2 className="text-2xl md:text-3xl font-bold text-[#d6a243] mb-4">
               Home Loan Calculator
@@ -301,7 +295,7 @@ export default function DiscountPropertiesPage() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

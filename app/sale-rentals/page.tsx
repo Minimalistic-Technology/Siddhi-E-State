@@ -24,11 +24,10 @@ export default function SaleRentalsPage() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10]);
   const [locationFilter, setLocationFilter] = useState("");
 
-  // 🟡 Fetch properties from backend
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/property/properties");
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/properties`);
         setProperties(res.data);
       } catch (error) {
         console.error("Error fetching properties", error);
@@ -57,7 +56,6 @@ export default function SaleRentalsPage() {
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
         <Navbar />
 
-        {/* Hero Banner */}
         <div className="relative h-96 w-full mt-8">
           <Image
             src="/our-approach.png"
@@ -77,11 +75,10 @@ export default function SaleRentalsPage() {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="bg-white rounded-2xl shadow-md p-6 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Type Filter */}
+
               <div>
                 <h2 className="text-sm font-medium text-gray-700 mb-2">
                   Property Type
@@ -108,7 +105,6 @@ export default function SaleRentalsPage() {
                 </div>
               </div>
 
-              {/* Price Range Filter */}
               <div>
                 <h2 className="text-sm font-medium text-gray-700 mb-2">
                   Price Range (in Cr.)
@@ -130,7 +126,6 @@ export default function SaleRentalsPage() {
                 </div>
               </div>
 
-              {/* Location Filter */}
               <div>
                 <h2 className="text-sm font-medium text-gray-700 mb-2">
                   Location
@@ -151,7 +146,6 @@ export default function SaleRentalsPage() {
             </div>
           </div>
 
-          {/* Property Cards */}
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProperties.map((prop) => (
               <div
@@ -207,7 +201,6 @@ export default function SaleRentalsPage() {
             ))}
           </div>
 
-          {/* Empty State */}
           {filteredProperties.length === 0 && (
             <div className="text-center py-20">
               <h3 className="text-xl font-semibold text-gray-700 mb-2">

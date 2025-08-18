@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "../components/navabar/page";
-import { div } from "framer-motion/client";
 import Footer from "../components/footer/page";
+
 type TeamMember = {
   id: number;
   name: string;
@@ -107,7 +107,6 @@ export default function AboutUsPage() {
           ))}
         </div>
 
-        {/* Our Approach Section */}
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
           <div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
@@ -124,7 +123,7 @@ export default function AboutUsPage() {
             </p>
           </div>
           <div className="relative w-full max-w-md sm:max-w-full h-auto rounded-lg shadow-lg overflow-hidden">
-            {/* Background Image with a building */}
+
             <Image
               src="/our-approach.png"
               alt="Siddhi Estates building"
@@ -133,7 +132,6 @@ export default function AboutUsPage() {
               className="w-full h-full object-cover"
             />
 
-            {/* Overlay Text */}
             <div className="absolute inset-0 bg-[#d6a243]/60 flex items-center justify-center p-4">
               <div className="text-white text-center">
                 <h3 className="text-2xl font-extrabold drop-shadow-lg">
@@ -146,7 +144,6 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-        {/* Achievements Section */}
         <div className="bg-[#d6a243] text-white py-16 text-center rounded-lg shadow-md">
           <h3 className="text-3xl font-extrabold mb-10">Our Achievements</h3>
           <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">

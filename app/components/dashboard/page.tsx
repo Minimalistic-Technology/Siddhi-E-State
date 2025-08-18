@@ -1,15 +1,13 @@
-import React from 'react'
-const DashboardCard = ({
-  title,
-  value,
-}: {
-  title: string;
-  value: string | number;
-}) => (
-  <div className="rounded-2xl p-6 shadow-lg bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100 border border-orange-700">
-    <h2 className="text-lg font-semibold text-red-700 mb-2">{title}</h2>
-    <p className="text-3xl font-bold text-red-600 drop-shadow-sm">{value}</p>
-  </div>
-);
+import React from "react";
+import DashboardCard from "./DashboardCard";
 
-export default DashboardCard;
+export default function Page() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+      <DashboardCard title="Revenue" value="$10,000" />
+      <DashboardCard title="Users" value={250} />
+      <DashboardCard title="Orders" value={120} />
+      <DashboardCard title="Growth" value="15%" />
+    </div>
+  );
+}

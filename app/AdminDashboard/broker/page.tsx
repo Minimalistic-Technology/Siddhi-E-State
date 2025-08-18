@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -18,6 +20,7 @@ type Requirement = {
   location: string;
   type: "residential" | "commercial";
 };
+
 const Broker = () => {
   const [brokers, setBrokers] = useState<Brokers[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,27 +44,20 @@ const Broker = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/property/brokers")
+      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/brokers`)
       .then((res) => setBrokers(res.data))
-      .catch((err) => console.error("Failed to fetch brokers", err));
+      .catch(() => console.error("Failed to fetch brokers"));
 
     axios
-      .get("http://localhost:5000/api/property/property-requirements")
+      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/property-requirements`)
       .then((res) => setRequirements(res.data.reverse()))
-      .catch((err) => console.error("Failed to fetch requirements", err));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/property/brokers")
-      .then((res) => setBrokers(res.data))
-      .catch((err) => console.error("Failed to fetch brokers", err));
+      .catch(() => console.error("Failed to fetch requirements"));
   }, []);
 
   const toggleVerified = async (id: string, current: boolean) => {
     try {
-      const res = await axios.put(
-        `http://localhost:5000/api/property/brokers/${id}`,
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/brokers/${id}`,
         {
           verified: !current,
         }
@@ -69,7 +65,7 @@ const Broker = () => {
       setBrokers((prev) =>
         prev.map((b) => (b._id === id ? { ...b, verified: !current } : b))
       );
-    } catch (err) {
+    } catch {
       alert("Failed to update verification status");
     }
   };
@@ -78,9 +74,9 @@ const Broker = () => {
     try {
       if (!window.confirm("Are you sure you want to delete this broker?"))
         return;
-      await axios.delete(`http://localhost:5000/api/property/brokers/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/brokers/${id}`);
       setBrokers((prev) => prev.filter((b) => b._id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to delete broker");
     }
   };
@@ -89,7 +85,7 @@ const Broker = () => {
     try {
       if (editingRequirement && editingRequirement._id) {
         const res = await axios.put(
-          `http://localhost:5000/api/property/property-requirements/${editingRequirement._id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/property-requirements/${editingRequirement._id}`,
           editingRequirement
         );
         setRequirements((prev) =>
@@ -97,7 +93,7 @@ const Broker = () => {
         );
       } else {
         const res = await axios.post(
-          "http://localhost:5000/api/property/property-requirements",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/property-requirements`,
           newRequirement
         );
         setRequirements((prev) => [res.data, ...prev]);
@@ -109,7 +105,7 @@ const Broker = () => {
         });
       }
       setEditingRequirement(null);
-    } catch (err) {
+    } catch {
       alert("Failed to save requirement");
     }
   };
@@ -118,13 +114,14 @@ const Broker = () => {
     if (!window.confirm("Delete this requirement?")) return;
     try {
       await axios.delete(
-        `http://localhost:5000/api/property/property-requirements/${id}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/property-requirements/${id}`
       );
       setRequirements((prev) => prev.filter((r) => r._id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to delete");
     }
   };
+
   return (
     <div>
       <section>
@@ -184,7 +181,6 @@ const Broker = () => {
           </table>
         </div>
 
-        {/* Pagination Controls */}
         <div className="flex justify-center mt-4 gap-2">
           {Array.from({ length: totalPages }, (_, i) => (
             <button
@@ -205,7 +201,6 @@ const Broker = () => {
             Property Requirements
           </h3>
 
-          {/* Form */}
           <div className="bg-white p-4 rounded shadow mb-6">
             <div className="grid md:grid-cols-2 gap-4">
               <input
@@ -287,7 +282,6 @@ const Broker = () => {
             </button>
           </div>
 
-          {/* List */}
           <div className="grid md:grid-cols-2 gap-4">
             {requirements.map((r) => (
               <div

@@ -31,7 +31,6 @@ export default function Redevelopment() {
   const [editingProject, setEditingProject] = useState<RedevelopmentProject | CommercialProject | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Initial empty project templates
   const emptyRedevelopment: RedevelopmentProject = {
     name: "",
     beforeImage: "",
@@ -53,8 +52,8 @@ export default function Redevelopment() {
   const fetchData = async () => {
     try {
       const [redevelopmentRes, commercialRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/property/redevelopment"),
-        axios.get("http://localhost:5000/api/property/commercial"),
+        axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/redevelopment`),
+        axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/commercial`),
       ]);
 
       setRedevelopmentProjects(redevelopmentRes.data);
@@ -71,7 +70,7 @@ export default function Redevelopment() {
   const handleDelete = async (type: "redevelopment" | "commercial", id: string) => {
     try {
       if (window.confirm("Are you sure you want to delete this project?")) {
-        await axios.delete(`http://localhost:5000/api/property/${type}/${id}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/property/${type}/${id}`);
         fetchData();
       }
     } catch (err) {
@@ -134,15 +133,13 @@ export default function Redevelopment() {
 
     try {
       if (isEditing && editingProject._id) {
-        // Update existing project
         await axios.put(
-          `http://localhost:5000/api/property/${activeTab}/${editingProject._id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/property/${activeTab}/${editingProject._id}`,
           editingProject
         );
       } else {
-        // Create new project
         await axios.post(
-          `http://localhost:5000/api/property/${activeTab}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/property/${activeTab}`,
           editingProject
         );
       }
@@ -193,7 +190,6 @@ export default function Redevelopment() {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Common fields */}
             <div>
               <label className="block text-sm font-medium mb-1">Project Name</label>
               <input
@@ -207,7 +203,6 @@ export default function Redevelopment() {
 
             {activeTab === "redevelopment" ? (
               <>
-                {/* Redevelopment specific fields */}
                 <div>
                   <label className="block text-sm font-medium mb-1">Status</label>
                   <select
@@ -299,7 +294,6 @@ export default function Redevelopment() {
               </>
             ) : (
               <>
-                {/* Commercial specific fields */}
                 <div>
                   <label className="block text-sm font-medium mb-1">Location</label>
                   <input
