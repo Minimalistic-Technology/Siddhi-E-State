@@ -30,7 +30,7 @@ export default function Navbar() {
     <>
       <nav className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-2 bg-opacity-80 bg-gray-50 mt-8 max-w-5xl mx-auto rounded-lg shadow-sm">
         <div className="text-lg font-bold text-gray-900 tracking-tight">
-          Siddhi Estates & Consultancy 
+          Siddhi Estates & Consultancy
         </div>
 
         {/* Desktop Menu */}
@@ -50,17 +50,18 @@ export default function Navbar() {
 
           <div
             className="relative"
+         
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
             {/* Services Button */}
-            <button className="text-gray-900 font-medium hover:text-[#d6a243] transition-colors">
+            <button className="text-gray-900 font-medium hover:text-[#d6a243] transition-colors cursor-pointer">
               Services
             </button>
 
             {/* Dropdown */}
             {showDropdown && (
-              <div className="absolute left-0 mt-2 w-64 bg-white shadow-md rounded-md z-50">
+              <div className="absolute left-0 pt-2 w-64 bg-white shadow-md rounded-md z-50">
                 {services.map((item, index) => (
                   <Link
                     key={index}

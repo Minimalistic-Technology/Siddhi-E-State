@@ -24,7 +24,7 @@ const Page = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/property/properties")
+      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/properties`)
       .then((res) => setProperties(res.data))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
@@ -37,7 +37,7 @@ const Page = () => {
     try {
       if (!window.confirm("Are you sure you want to delete this property?"))
         return;
-      await axios.delete(`http://localhost:5000/api/property/properties/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`);
       setProperties((prev) => prev.filter((p) => p._id !== id));
     } catch {
       alert("Failed to delete property");
@@ -261,7 +261,7 @@ const Page = () => {
                   try {
                     if (editingProperty._id) {
                       await axios.put(
-                        `http://localhost:5000/api/property/properties/${editingProperty._id}`,
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${editingProperty._id}`,
                         editingProperty
                       );
                       setProperties((prev) =>
@@ -271,7 +271,7 @@ const Page = () => {
                       );
                     } else {
                       const res = await axios.post(
-                        "http://localhost:5000/api/property/properties",
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties`,
                         editingProperty
                       );
                       setProperties((prev) => [...prev, res.data]);

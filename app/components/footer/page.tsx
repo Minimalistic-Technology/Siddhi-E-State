@@ -11,10 +11,10 @@ const Footer = () => {
           <Link href="/about" className="text-white font-medium hover:text-gray-200 transition-colors">
             About
           </Link>
-          <Link href="/about" className="text-white font-medium hover:text-gray-200 transition-colors">
+          <Link href="/services" className="text-white font-medium hover:text-gray-200 transition-colors">
             Services
           </Link>
-          <Link href="/about" className="text-white font-medium hover:text-gray-200 transition-colors">
+          <Link href="/properties" className="text-white font-medium hover:text-gray-200 transition-colors">
             Properties
           </Link>
         </div>
