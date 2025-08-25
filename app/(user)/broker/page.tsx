@@ -10,7 +10,7 @@ import {
   FaHome,
   FaBuilding,
 } from "react-icons/fa";
-import Navbar from "../components/navabar/page";
+// import Navbar from "../components/navabar/page";
 import { useForm } from "react-hook-form";
 import api from "@/utils/api";
 
@@ -97,9 +97,9 @@ export default function BrokerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="max-w-6xl mx-auto py-16 px-6">
           <h1 className="text-4xl font-bold text-gray-900 mb-10 text-center">
             Verified Brokers – Virar to Churchgate

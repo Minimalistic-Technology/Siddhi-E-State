@@ -9,13 +9,13 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("Properties");
 
   return (
-    <div className="min-h-screen bg-[#faeebf] text-[#d6a243]  p-6">
-      <nav className="flex gap-4 mb-6">
+    <div className="min-h-screen bg-[#faeebf] text-[#d6a243] p-3 w-full ">
+      <nav className=" min-w-full flex flex-wrap gap-4  mb-6 justify-center">
         {["Properties", "Brokers", "Redevelopment", "Orders"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-full font-semibold ${
+            className={`px-4 py-2 rounded-full font-semibold w-[150px] md:w-auto ${
               activeTab === tab
                 ? "bg-red-600 text-white"
                 : "bg-red-100 text-red-700"

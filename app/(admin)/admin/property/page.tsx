@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import DashboardCard from "../../components/dashboard/DashboardCard";
+import DashboardCard from "../../../components/dashboard/DashboardCard";
 
 type Property = {
   _id?: string;
@@ -37,7 +37,9 @@ const Page = () => {
     try {
       if (!window.confirm("Are you sure you want to delete this property?"))
         return;
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`);
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`
+      );
       setProperties((prev) => prev.filter((p) => p._id !== id));
     } catch {
       alert("Failed to delete property");
@@ -55,7 +57,9 @@ const Page = () => {
           <DashboardCard title="Total Properties" value={properties.length} />
           <DashboardCard
             title="Available"
-            value={properties.filter((p) => p.availability === "Available").length}
+            value={
+              properties.filter((p) => p.availability === "Available").length
+            }
           />
           <DashboardCard
             title="Sold"
@@ -100,26 +104,34 @@ const Page = () => {
             <h3 className="text-xl font-semibold mb-4 text-red-600">
               {editingProperty._id ? "Edit Property" : "Add New Property"}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:grid  md:grid-cols-2 gap-4 flex flex-col">
               <div>
                 <label className="block text-sm font-medium mb-1">Title</label>
                 <input
                   type="text"
                   value={editingProperty.title}
                   onChange={(e) =>
-                    setEditingProperty({ ...editingProperty, title: e.target.value })
+                    setEditingProperty({
+                      ...editingProperty,
+                      title: e.target.value,
+                    })
                   }
                   className="border px-3 py-2 rounded w-full"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Location</label>
+                <label className="block text-sm font-medium mb-1">
+                  Location
+                </label>
                 <input
                   type="text"
                   value={editingProperty.location}
                   onChange={(e) =>
-                    setEditingProperty({ ...editingProperty, location: e.target.value })
+                    setEditingProperty({
+                      ...editingProperty,
+                      location: e.target.value,
+                    })
                   }
                   className="border px-3 py-2 rounded w-full"
                 />
@@ -160,7 +172,9 @@ const Page = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Area (sq.ft)</label>
+                <label className="block text-sm font-medium mb-1">
+                  Area (sq.ft)
+                </label>
                 <input
                   type="number"
                   value={editingProperty.area}
@@ -180,14 +194,19 @@ const Page = () => {
                   type="text"
                   value={editingProperty.type}
                   onChange={(e) =>
-                    setEditingProperty({ ...editingProperty, type: e.target.value })
+                    setEditingProperty({
+                      ...editingProperty,
+                      type: e.target.value,
+                    })
                   }
                   className="border px-3 py-2 rounded w-full"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Bedrooms</label>
+                <label className="block text-sm font-medium mb-1">
+                  Bedrooms
+                </label>
                 <input
                   type="number"
                   value={editingProperty.bedrooms}
@@ -202,7 +221,9 @@ const Page = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Availability</label>
+                <label className="block text-sm font-medium mb-1">
+                  Availability
+                </label>
                 <select
                   value={editingProperty.availability}
                   onChange={(e) =>
@@ -220,7 +241,9 @@ const Page = () => {
               </div>
 
               <div className="col-span-2">
-                <label className="block text-sm font-medium mb-1">Image Upload</label>
+                <label className="block text-sm font-medium mb-1">
+                  Image Upload
+                </label>
                 <input
                   type="file"
                   accept="image/*"
@@ -243,7 +266,9 @@ const Page = () => {
 
               {editingProperty.image && (
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium mb-1">Preview</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Preview
+                  </label>
                   <Image
                     src={editingProperty.image}
                     alt="Preview"

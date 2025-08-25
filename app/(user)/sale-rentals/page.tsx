@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../components/navabar/page";
-import Footer from "../components/footer/page";
+// import Navbar from "../components/navabar/page";
+// import Footer from "../components/footer/page";
 
 type Property = {
   _id: string;
@@ -52,9 +52,9 @@ export default function SaleRentalsPage() {
   const locations = Array.from(new Set(properties.map((p) => p.location)));
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
-        <Navbar />
+        {/* <Navbar /> */}
 
         <div className="relative h-96 w-full mt-8">
           <Image
@@ -211,7 +211,7 @@ export default function SaleRentalsPage() {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

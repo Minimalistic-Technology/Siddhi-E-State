@@ -159,7 +159,7 @@ const Broker = () => {
                       {broker.verified ? "Verified" : "Not Verified"}
                     </span>
                   </td>
-                  <td className="px-4 py-2 text-center space-x-2">
+                  <td className=" flex flex-col gap-2 px-4 py-2 text-center space-x-2">
                     <button
                       onClick={() =>
                         toggleVerified(broker._id, broker.verified)
@@ -202,7 +202,7 @@ const Broker = () => {
           </h3>
 
           <div className="bg-white p-4 rounded shadow mb-6">
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-4">
               <input
                 type="text"
                 placeholder="Title"
@@ -218,7 +218,7 @@ const Broker = () => {
                         title: e.target.value,
                       })
                 }
-                className="border p-2 rounded"
+                className="border p-2 w-full rounded"
               />
               <input
                 type="text"

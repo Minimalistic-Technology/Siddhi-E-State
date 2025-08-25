@@ -3,8 +3,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Navbar from "../components/navabar/page";
-import Footer from "../components/footer/page";
+// import Navbar from "../components/navabar/page";
+// import Footer from "../components/footer/page";
 import api from "@/utils/api";
 
 type Property = {
@@ -88,7 +88,7 @@ export default function PropertiesContent() {
       .slice(0, 3);
 
     return (
-      <div className="bg-white p-6 rounded-xl shadow mb-12">
+      <div className="bg-white p-6 rounded-xl shadow mb-12 ">
         <h2 className="text-2xl font-bold mb-4 text-[#d6a243]">
           Properties in {city}
         </h2>
@@ -169,9 +169,9 @@ export default function PropertiesContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
-        <Navbar />
+        {/* <Navbar /> */}
 
         <div className="w-full h-[70vh] relative mb-20 mt-10 rounded-lg overflow-hidden shadow-lg">
           <Image
@@ -354,7 +354,7 @@ export default function PropertiesContent() {
           {renderCitySection("Mumbai")}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

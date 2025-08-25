@@ -12,7 +12,7 @@ import {
   Calculator,
   CircleDotDashed,
 } from "lucide-react";
-import Navbar from "../components/navabar/page";
+// import Navbar from "../components/navabar/page";
 import axios from "axios";
 
 export default function LoansLegalPage() {
@@ -66,9 +66,9 @@ export default function LoansLegalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
-        <Navbar />
+        {/* <Navbar /> */}
         <main className="bg-gradient-to-b from-amber-50 to-amber-100 text-amber-900">
           <section className="text-center py-20 px-6 max-w-4xl mx-auto">
             <motion.div

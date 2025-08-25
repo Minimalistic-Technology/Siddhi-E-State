@@ -4,9 +4,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Loader } from "lucide-react";
-import Navbar from "../components/navabar/page";
+// import Navbar from "../components/navabar/page";
 import { useForm } from "react-hook-form";
-import Footer from "../components/footer/page";
+// import Footer from "../components/footer/page";
 import api from "@/utils/api";
 
 type Properties = {
@@ -107,9 +107,9 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="p-6 md:p-10 max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-[#d6a243] mb-6">
             Our Services
@@ -295,7 +295,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

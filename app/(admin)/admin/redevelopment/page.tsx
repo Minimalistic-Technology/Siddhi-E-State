@@ -152,11 +152,11 @@ export default function Redevelopment() {
 
   return (
     <div className="p-6  rounded-xl shadow-md">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex space-x-4">
+      <div className="flex flex-col  items-center mb-6 gap-4">
+        <div className="flex flex-wrap gap-4 ">
           <button
             onClick={() => setActiveTab("redevelopment")}
-            className={`px-4 py-2 rounded-lg font-medium ${
+            className={`px-4 py-4 rounded-lg font-medium w-full ${
               activeTab === "redevelopment"
                 ? "bg-[#d6a243] text-white"
                 : "bg-gray-100 text-gray-700"
@@ -166,7 +166,7 @@ export default function Redevelopment() {
           </button>
           <button
             onClick={() => setActiveTab("commercial")}
-            className={`px-4 py-2 rounded-lg font-medium ${
+            className={`px-4 py-4 rounded-lg font-medium w-full ${
               activeTab === "commercial"
                 ? "bg-[#d6a243] text-white"
                 : "bg-gray-100 text-gray-700"

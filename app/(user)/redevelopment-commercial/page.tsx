@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Navbar from "../components/navabar/page";
+// import Navbar from "../components/navabar/page";
 import axios from "axios";
 import { FaBuilding, FaRegCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import Link from "next/link";
@@ -102,9 +102,9 @@ export default function RedevelopmentCommercialPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f9f1dd] text-gray-900">
+    <div className="min-h-screen bg-[#f9f1dd] text-gray-900 -mt-2 md:-mt-22 md:pt-20">
       <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6">
-        <Navbar />
+        {/* <Navbar /> */}
 
         <div className="relative h-96 w-full mb-20 bg-[#d6a243] flex items-center justify-center border-b border-[#d6a243]/20 mt-8">
           <div className="text-center px-4">
@@ -246,7 +246,7 @@ export default function RedevelopmentCommercialPage() {
                 Previous
               </button>
               <span className="text-[#d6a243] font-medium">
-                Page {redevelopmentPage} of {totalRedevelopmentPages}
+                Page {redevelopmentPage} of {totalRedevelopmentPages===0?1:totalRedevelopmentPages}
               </span>
               <button
                 onClick={() =>
@@ -254,7 +254,7 @@ export default function RedevelopmentCommercialPage() {
                     prev < totalRedevelopmentPages ? prev + 1 : prev
                   )
                 }
-                disabled={redevelopmentPage === totalRedevelopmentPages}
+                disabled={redevelopmentPage === totalRedevelopmentPages || totalRedevelopmentPages===0}
                 className="px-4 py-2 bg-[#d6a243] text-white rounded disabled:opacity-50"
               >
                 Next

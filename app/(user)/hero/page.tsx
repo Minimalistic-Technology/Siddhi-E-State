@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import api from "@/utils/api";
-import Navbar from "../components/navabar/page";
+// import Navbar from "../components/navabar/page";
 import { AxiosError } from 'axios';
 import { Phone } from "lucide-react";
 
@@ -88,7 +88,7 @@ export default function HeroSection() {
 
   return (
     <div>
-      <div className="relative min-h-screen sm:min-h-[120vh] bg-gray-100 overflow-hidden">
+      <div className="relative min-h-screen sm:min-h-[120vh] bg-gray-100 overflow-hidden -mt-2 md:mt-0">
         <div className="absolute inset-0 z-0">
           <Image
             src="/image.jpg"
@@ -101,7 +101,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-black opacity-30"></div>
         </div>
 
-        <Navbar></Navbar>
+        {/* <Navbar></Navbar> */}
         <div className="relative z-5 flex flex-col items-center justify-center h-full px-4 sm:px-6 pt-24 sm:pt-32 text-center">
           <div className="flex flex-col items-center ">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 tracking-wide drop-shadow-lg">
@@ -124,7 +124,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex justify-center w-full">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <div className="bg-gray-50 p-6 mb-4 md:mb-0 rounded-lg shadow-lg w-full max-w-lg">
               <h3 className="text-lg font-bold mb-2 text-gray-900">
                 Find Properties
               </h3>
@@ -166,23 +166,23 @@ export default function HeroSection() {
       </div>
 
       <section className="bg-[#f9f1dd] py-20 px-4 sm:px-6">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-6 mx-auto text-center">
+        <h2 className="text-4xl font-extrabold text-gray-900 mb-30 md:mb-6 mx-auto text-center underline">
           Who We Are
         </h2>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
+            <h2 className="text-2xl md:text-4xl md:font-extrabold font-bold text-gray-900 mb-6 text-center md:text-left ">
               Expertise in real estate solutions
             </h2>
-            <p className="text-lg text-gray-800 mb-4">
+            <p className="text-lg text-gray-800 mb-4  md:text-left text-justify">
               At Siddhi Real Estate and Consultancy, we excel in buying and
               renting flats and commercial properties. Our dedicated team offers
               insightful consulting services for property investment
               opportunities and expertly assists with all property documentation
               needs.
             </p>
-            <p className="text-lg text-gray-800 mb-6">
+            <p className="text-lg text-gray-800 mb-6 md:text-left text-justify">
               We leverage our extensive market knowledge in Mumbai to ensure
               that every client receives tailored solutions that meet their
               unique requirements. Trust us to navigate your real estate journey
@@ -214,7 +214,7 @@ export default function HeroSection() {
 
       <section className="bg-[#f9f1dd] py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-12 text-left">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-12 md:text-left text-center">
             Your gateway to real estate success
           </h2>
 
@@ -280,7 +280,7 @@ export default function HeroSection() {
 
       <section id="contact" className="bg-[#f9f1dd] py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-12">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-12 md:text-left text-center">
             We’re here to assist you!
           </h2>
 
@@ -479,8 +479,8 @@ export default function HeroSection() {
         </div>  */}
 
         {/* Service Area Map */}
-        <div className="mt-20">
-          <h3 className="text-3xl font-bold text-gray-900 mb-6">
+        <div className="mt-20 p-4">
+          <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center md:text-left">
             Service Areas
           </h3>
           <p className="mb-4 text-gray-700">

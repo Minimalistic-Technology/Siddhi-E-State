@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Navbar from "../components/navabar/page";
-import Footer from "../components/footer/page";
+
+// import Footer from "../components/footer/page";
 
 type TeamMember = {
   id: number;
@@ -44,11 +44,11 @@ const fadeUp = {
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <div className="bg-[#f9f1dd] py-4 px-4 sm:px-6 text-gray-900">
+    <div className="min-h-screen text-gray-900 -mt-2 md:-mt-22 ">
+      <div className="bg-[#f9f1dd]  py-5 px-4 sm:px-6 text-gray-900 md:pt-25">
         {/* Banner */}
-        <Navbar></Navbar>
-        <div className="w-full h-[70vh] relative mb-20 mt-10 rounded-lg overflow-hidden shadow-lg">
+        {/* <Navbar></Navbar> */}
+        <div className="w-full h-[70vh] relative mb-20  rounded-lg overflow-hidden shadow-lg">
           <Image
             src="/about-banner.png"
             alt="Banner image"
@@ -162,7 +162,7 @@ export default function AboutUsPage() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 }

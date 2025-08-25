@@ -28,7 +28,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-2 bg-opacity-80 bg-gray-50 mt-8 max-w-5xl mx-auto rounded-lg shadow-sm">
+      <nav className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-2 bg-opacity-80 bg-gray-50 md:mt-8 max-w-5xl mx-auto rounded-lg shadow-sm">
         <div className="text-lg font-bold text-gray-900 tracking-tight">
           Siddhi Estates & Consultancy
         </div>
@@ -50,7 +50,6 @@ export default function Navbar() {
 
           <div
             className="relative"
-         
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
@@ -85,13 +84,13 @@ export default function Navbar() {
 
         <Link
           href="/#contact"
-          className="px-4 py-1.5 bg-[#d6a243] text-white rounded-lg hover:bg-[#b48735] transition-colors font-semibold"
+          className="md:px-4 px-1 py-1.5 bg-[#d6a243] text-white rounded-lg hover:bg-[#b48735] transition-colors md:font-semibold inline-block w-40 text-center"
         >
           Contact Us
         </Link>
 
         {/* Hamburger Button */}
-        <div className="flex md:hidden bg-[#d6a243] text-white rounded-lg p-2 ml-2">
+        <div className="flex md:hidden bg-[#d6a243] text-white rounded-lg md:p-2 p-1 ml-2">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             <span className="text-xl font-bold">
               {isMobileMenuOpen ? "✖" : "☰"}
@@ -102,7 +101,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-24 left-0 w-full z-50 bg-gray-50 rounded-lg shadow-lg px-4 py-4">
+        <div className="md:hidden absolute  top-17 left-0 w-full z-50 bg-gray-50 rounded-b-lg shadow-lg px-4 py-4">
           <div className="flex flex-col space-y-3">
             <Link
               href="/"
